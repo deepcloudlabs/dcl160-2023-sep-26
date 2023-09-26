@@ -22,3 +22,5 @@ sorted_set_names = sorted(set_names)
 print(sorted_set_names)
 print("jack" in set_names)
 print("jack" in list_names)
+list_names.remove("jack")
+del list_names[0]
