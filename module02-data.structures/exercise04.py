@@ -1,0 +1,13 @@
+odds = (1, 3, 5, 7, 9)
+evens = (2, 4, 6, 8, 10)
+numbers = (odds, evens)
+print(len(odds))
+print(len(evens))
+print(len(numbers))
+print(numbers[0])
+print(numbers[1])
+numbers = (*odds, *evens)
+print(len(numbers))
+print(numbers)
+print(sorted(numbers))
+
