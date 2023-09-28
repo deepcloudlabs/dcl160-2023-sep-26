@@ -13,7 +13,7 @@ from random import randint
 
 
 def get_random_digit(lower_bound, upper_bound):
-    return randint(lower_bound,upper_bound)
+    return randint(lower_bound, upper_bound)
 
 
 def create_secret(game_level):
