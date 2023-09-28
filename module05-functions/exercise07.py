@@ -33,4 +33,49 @@ game = {
     "max_num_of_moves": 10
 }
 
-print(game)
+
+def evaluate_move(guess, secret):
+    guess_as_str = str(guess)
+    secret_as_str = str(secret)
+    perfect_match = 0
+    partial_match = 0
+    for i, digit_guess in enumerate(guess_as_str):
+        for j, digit_secret in enumerate(secret_as_str):
+            if digit_guess == digit_secret:
+                if i == j:
+                    perfect_match += 1
+                else:
+                    partial_match += 1
+    return partial_match, perfect_match, create_message(partial_match, perfect_match)
+
+
+def create_message(partial_match: int, perfect_match: int) -> str:
+    message: str = ""
+    if perfect_match == 0 and partial_match == 0:
+        message = "No match"
+    else:
+        if partial_match > 0:
+            message = f"-{partial_match}"
+        if perfect_match > 0:
+            message = f"{message}+{perfect_match}"
+    return message
+
+
+def play(game_state):
+    while True:
+        guess = int(input("Enter your guess: "))
+        secret = game_state["secret"]
+        # (1,2,"-1+2")
+        # (0,0,"No match")
+        # (0,3,"+3")
+        evaluation = evaluate_move(guess, secret)
+        if evaluation[1] == game_state["level"]:
+            player_wins(game_state)
+            if game_state["level"] > 10:
+                print("You win!")
+                break
+        else:
+            print(evaluation[2])
+            game_state["moves"] += 1
+            if game_state["moves"] >= game_state["max_num_of_moves"]:
+                player_loses(game_state)
