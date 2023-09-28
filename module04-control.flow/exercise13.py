@@ -1,5 +1,4 @@
 week_day = "tuesday"
-day = 0
 match week_day:
     case "monday":
         day = 1
@@ -15,4 +14,6 @@ match week_day:
         day = 6
     case "sunday":
         day = 0
+    case _:
+        raise ValueError("Undefined day")
 print(f"{week_day}: {day}")
