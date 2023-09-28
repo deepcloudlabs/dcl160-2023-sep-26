@@ -65,9 +65,6 @@ def play(game_state):
     while True:
         guess = int(input("Enter your guess: "))
         secret = game_state["secret"]
-        # (1,2,"-1+2")
-        # (0,0,"No match")
-        # (0,3,"+3")
         evaluation = evaluate_move(guess, secret)
         if evaluation[1] == game_state["level"]:
             player_wins(game_state)
@@ -79,3 +76,6 @@ def play(game_state):
             game_state["moves"] += 1
             if game_state["moves"] >= game_state["max_num_of_moves"]:
                 player_loses(game_state)
+
+
+play(game)
