@@ -20,3 +20,16 @@ def grp_by_continent(grp,t):
 pop_by_cont = reduce(grp_by_continent, map(to_population, countries), dict())
 
 print(pop_by_cont)
+
+max_reducer = lambda max_country,country: max_country if max_country["lifeExpectancy"] > country["lifeExpectancy"] else country
+min_reducer = lambda min_country,country: min_country if min_country["lifeExpectancy"] < country["lifeExpectancy"] else country
+
+lifeExpectancyPresent = lambda country : "lifeExpectancyPresent" in country
+# problem #4: find the country with the highest lifeExpectancy
+country_highest_lifeExpectancy = reduce(max_reducer, filter(lifeExpectancyPresent,countries), countries[0])
+
+print(country_highest_lifeExpectancy["name"],country_highest_lifeExpectancy["continent"],country_highest_lifeExpectancy["lifeExpectancy"],country_highest_lifeExpectancy["population"])
+
+country_lowest_lifeExpectancy = reduce(min_reducer, filter(lifeExpectancyPresent,countries), countries[0])
+
+print(country_lowest_lifeExpectancy["name"],country_lowest_lifeExpectancy["continent"],country_lowest_lifeExpectancy["lifeExpectancy"],country_lowest_lifeExpectancy["population"])
