@@ -4,7 +4,7 @@ def fun(n):
         series.append(n)
         n = n // 2 if n % 2 == 0 else 3 * n + 1
     series.append(n)
-    return (series[0], len(series), series[-1], series)
+    return series[0], len(series), series[-1], series
 
 
 def get_longest_series(lower_bound=7, upper_bound=100_000):
