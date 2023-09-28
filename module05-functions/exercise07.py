@@ -12,11 +12,11 @@ guess: 123 -> No match
 from random import randint
 
 
-def get_random_digit(lower_bound, upper_bound):
+def get_random_digit(lower_bound: int, upper_bound: int) -> int:
     return randint(lower_bound, upper_bound)
 
 
-def create_secret(game_level):
+def create_secret(game_level: int) -> int:
     digits = [get_random_digit(1, 9)]
     while len(digits) < game_level:
         digit = get_random_digit(0, 9)
@@ -34,11 +34,11 @@ game = {
 }
 
 
-def evaluate_move(guess, secret):
-    guess_as_str = str(guess)
-    secret_as_str = str(secret)
-    perfect_match = 0
-    partial_match = 0
+def evaluate_move(guess: int, secret: int) -> tuple[int, int, str]:
+    guess_as_str: str = str(guess)
+    secret_as_str: str = str(secret)
+    perfect_match: int = 0
+    partial_match: int = 0
     for i, digit_guess in enumerate(guess_as_str):
         for j, digit_secret in enumerate(secret_as_str):
             if digit_guess == digit_secret:
@@ -63,9 +63,9 @@ def create_message(partial_match: int, perfect_match: int) -> str:
 
 def play(game_state):
     while True:
-        guess = int(input("Enter your guess: "))
-        secret = game_state["secret"]
-        evaluation = evaluate_move(guess, secret)
+        guess: int = int(input("Enter your guess: "))
+        secret: int = game_state["secret"]
+        evaluation: tuple[int, int, str] = evaluate_move(guess, secret)
         if evaluation[1] == game_state["level"]:
             player_wins(game_state)
             if game_state["level"] > 10:
@@ -77,5 +77,7 @@ def play(game_state):
             if game_state["moves"] >= game_state["max_num_of_moves"]:
                 player_loses(game_state)
 
+
+# 10:05
 
 play(game)
