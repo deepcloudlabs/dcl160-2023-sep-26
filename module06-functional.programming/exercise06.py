@@ -10,3 +10,13 @@ print(continents)
 total_population = reduce(lambda pop,total_pop: pop+total_pop, map(lambda country: country["population"],filter(lambda country: country["continent"] == "Asia", countries)))
 
 print(total_population)
+to_population = lambda country: (country["continent"],country["population"])
+def grp_by_continent(grp,t):
+    grp[t[0]] = t[1] if not t[0] in grp else grp[t[0]] + t[1]
+    return grp
+
+
+# problem #3: population of each continent
+pop_by_cont = reduce(grp_by_continent, map(to_population, countries), dict())
+
+print(pop_by_cont)
