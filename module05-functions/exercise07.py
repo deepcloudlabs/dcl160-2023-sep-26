@@ -22,7 +22,9 @@ def create_secret(game_level: int) -> int:
         digit = get_random_digit(0, 9)
         if not digit in digits:
             digits.append(digit)
-    return int("".join([str(digit) for digit in digits]))
+    secret_number = int("".join([str(digit) for digit in digits]))
+    print(secret_number)
+    return secret_number
 
 
 game = {
@@ -61,23 +63,44 @@ def create_message(partial_match: int, perfect_match: int) -> str:
     return message
 
 
+def player_wins(game_state):
+    game_state["level"] += 1
+    game_state["moves"] = 0
+    game_state["max_num_of_moves"] += 2
+    game_state["lives"] += 1
+    game_state["secret"] = create_secret(game_state["level"])
+
+
+def player_loses(game_state):
+    game_state["moves"] = 0
+    game_state["lives"] -= 1
+    game_state["secret"] = create_secret(game_state["level"])
+
+
+def print_game_status(game_state):
+    print(
+        f"level: {game_state['level']}, moves: {game_state['moves']} / {game_state['max_num_of_moves']}, lives: {game_state['lives']}")
+
+
 def play(game_state):
     while True:
+        print_game_status(game_state)
         guess: int = int(input("Enter your guess: "))
         secret: int = game_state["secret"]
         evaluation: tuple[int, int, str] = evaluate_move(guess, secret)
         if evaluation[1] == game_state["level"]:
-            player_wins(game_state)
-            if game_state["level"] > 10:
+            if game_state["level"] == 10:
                 print("You win!")
                 break
+            player_wins(game_state)
         else:
             print(evaluation[2])
             game_state["moves"] += 1
             if game_state["moves"] >= game_state["max_num_of_moves"]:
                 player_loses(game_state)
+                if game_state["lives"] <= 0:
+                    print("You lose!")
+                    break
 
-
-# 10:05
 
 play(game)
