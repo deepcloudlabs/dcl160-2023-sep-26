@@ -6,5 +6,6 @@ def fun(n):
         yield n
     yield n
 
+
 for number in fun(512_977):
     print(f"number: {number}")
