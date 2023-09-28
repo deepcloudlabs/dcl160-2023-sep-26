@@ -42,3 +42,5 @@ print(country_lowest_lifeExpectancy["name"],country_lowest_lifeExpectancy["conti
 for country in countries:
     print(country["name"], country["lifeExpectancy"] if "lifeExpectancy" in country else "N/A")
 """
+print(any(map(lambda country: country["population"] == 0, countries)))
+print(all(map(lambda country: "capital" in country, countries)))
