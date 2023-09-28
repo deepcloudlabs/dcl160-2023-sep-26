@@ -8,6 +8,7 @@ employees = [  # data
     ("james sawyer", "5", 300_000, "tr5", ["FINANCE", "IT"], True)
 ]
 
+
 # HoF + Pure Function
 # MapReduce: HDFS + MapReduce
 # Pipeline: Function (HoF) Composition
@@ -15,5 +16,7 @@ works_in_it = lambda employee: "IT" in employee[4]
 is_full_time_employee = lambda employee: employee[-1]
 to_salary = lambda employee: employee[2]
 into_total_salary = lambda accumulator, salary: accumulator + salary
-full_time_it_employee_salaries = reduce(into_total_salary, map(to_salary, filter(is_full_time_employee,filter(works_in_it, employees))))
+# employees -> [ filter -> filter -> map -> reduce ] -> solution
+full_time_it_employee_salaries = reduce(into_total_salary,
+                                        map(to_salary, filter(is_full_time_employee, filter(works_in_it, employees))))
 print(full_time_it_employee_salaries)
