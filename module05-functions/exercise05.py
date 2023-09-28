@@ -9,5 +9,4 @@ my_params = {
 }
 
 print(gun(**my_params))
-print(gun(y=100, z=200, x= 300))
-
+print(gun(y=100, z=200, x=300))
