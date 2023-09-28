@@ -1,4 +1,6 @@
-employees = [
+import pandas as pd
+
+df = pd.DataFrame([
     ("jack shephard", "Sales", 100000, 1978, True),
     ("kate austen", "IT", 200000, 1985, False),
     ("ben linus", "Finance", 150000, 1967, True),
@@ -6,12 +8,5 @@ employees = [
     ("kim kwon", "Sales", 120000, 1986, True),
     ("sun kwon", "IT", 170000, 1984, False),
     ("hugo reyes", "IT", 120000, 1992, True)
-]
-try:
-    file = open("employees.txt", mode="wt")
-    for fullname, department, salary, birth_year, full_time in employees:
-        file.write(f"{fullname},{department},{salary},{birth_year},{full_time}\n")
-except Exception as e:
-    print(e)
-finally:
-    file.close()
+], columns=["fullname", "department", "salary", "birth year", "full time"])
+df.to_csv("employees_pandas.csv")

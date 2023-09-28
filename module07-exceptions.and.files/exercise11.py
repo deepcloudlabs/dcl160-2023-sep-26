@@ -1,3 +1,6 @@
+import csv
+import json
+
 employees = [
     ("jack shephard", "Sales", 100000, 1978, True),
     ("kate austen", "IT", 200000, 1985, False),
@@ -7,11 +10,8 @@ employees = [
     ("sun kwon", "IT", 170000, 1984, False),
     ("hugo reyes", "IT", 120000, 1992, True)
 ]
-try:
-    file = open("employees.txt", mode="wt")
-    for fullname, department, salary, birth_year, full_time in employees:
-        file.write(f"{fullname},{department},{salary},{birth_year},{full_time}\n")
-except Exception as e:
-    print(e)
-finally:
-    file.close()
+with open("fulltime-employees.csv", mode="wt", newline="") as file:
+    writer = csv.writer(file)
+    for employee in employees:
+        if employee[-1]:
+            writer.writerow(employee)
