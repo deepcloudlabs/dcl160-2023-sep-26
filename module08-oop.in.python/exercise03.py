@@ -17,7 +17,19 @@ class InsufficientBalanceError(Exception):
         self.deficit = deficit
 
 
-class Account:
+class Withdrawble:
+
+    def withdraw(self, amount: float) -> float:
+        pass
+
+
+class Depositable:
+
+    def deposit(self, amount: float) -> float:
+        pass
+
+
+class Account(Withdrawble, Depositable):
     """
     Account is a class -> abstraction
     Members:  i) attributes/state/data -> iban, balance, status, ...
@@ -94,10 +106,12 @@ class Account:
 """
 
 
-class CheckingAccount(Account):
+class CheckingAccount(Withdrawble, Depositable):
     def __init__(self, iban: str = "tr1", balance: float = 50, status: AccountStatus = AccountStatus.ACTIVE,
                  overdraft_amount: float = 1_000):
-        super().__init__(iban, balance, status)
+        self._iban = iban
+        self._balance = balance
+        self._status = status
         self._overdraft_amount = overdraft_amount
 
     @property
@@ -121,6 +135,14 @@ class CheckingAccount(Account):
 
     def __str__(self):
         return f"CheckingAccount [iban: {self.iban}, balance: {self.balance}, status: {self.status.name}, overdraft_amount: {self._overdraft_amount}]"
+
+
+class SavingsAccount(Withdrawble):
+    def __init__(self, iban: str, balance: float, status: AccountStatus = AccountStatus.ACTIVE, days: float = 30):
+        self._iban = iban
+        self._balance = balance
+        self._status = status
+        self._days = days
 
 
 try:
